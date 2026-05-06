@@ -86,29 +86,50 @@
         <div id="api"></div>
     </div>
 </div>
+ <script>
+function getSelectedRadio() {
+    const radios = document.querySelectorAll('input[type="radio"]');
  
-<script>
-function updatePlaceholder() {
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            return radios[i];
+        }
+    }
+    return null;
+}
+ 
+function updateUI() {
     const textbox = document.querySelector('input[type="text"]');
-    const selected = document.querySelector('input[type="radio"]:checked');
+    const selected = getSelectedRadio();
  
     if (!textbox || !selected) return;
  
-    const id = selected.id;
+    const id = selected.id || "";
  
-    if (id.includes("email")) {
-        textbox.placeholder = "Enter your email address";
+    let text = "Enter your value";
+ 
+    if (id.indexOf("email") !== -1) {
+        text = "Enter your email address";
     }
-    else if (id.includes("phone")) {
-        textbox.placeholder = "Enter your phone number";
+    else if (id.indexOf("phone") !== -1) {
+        text = "Enter your phone number";
     }
-    else {
-        textbox.placeholder = "Enter your account ID";
+    else if (id.indexOf("accountId") !== -1) {
+        text = "Enter your account ID";
+    }
+ 
+    // Apply placeholder
+    textbox.setAttribute("placeholder", text);
+ 
+    // Also update label (more stable)
+    const label = document.querySelector('label[for="identifierValue"]');
+    if (label) {
+        label.innerText = text;
     }
 }
  
-/* Keep updating because B2C re-renders */
-setInterval(updatePlaceholder, 300);
+// Run continuously to survive B2C DOM refresh
+setInterval(updateUI, 250);
 </script>
  
 </body>
