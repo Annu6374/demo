@@ -1,37 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Collect Identifier</title>
+    <title>Identify User</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .radio-group {
+            margin: 15px 0;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #005ea6;
+        }
+    </style>
 </head>
 <body>
-  <form id="selfAssertedForm">
-  <input type="radio" name="identifierType" value="email" checked>Email Address<br/>
-  <input type="radio" name="identifierType" value="phone">Phone Number<br/>
-  <input type="radio" name="identifierType" value="accountId">Account ID<br/>
-
-  <input id="identifierValue" name="identifierValue" type="text" placeholder="Enter value" required />
-
-  <button id="continue" type="submit">Continue</button>
-  <button id="cancel" type="button">Cancel</button>
+ 
+<form id="selfAssertedForm" class="container">
+    <h2>Find Your Account</h2>
+ 
+    <div class="radio-group">
+        <label><input type="radio" name="identifierType" value="email" checked> Email</label><br>
+        <label><input type="radio" name="identifierType" value="phone"> Phone</label><br>
+        <label><input type="radio" name="identifierType" value="accountId"> Account ID</label>
+    </div>
+ 
+    <input type="text" placeholder="Enter your value" id="identifierValue" name="identifierValue" required />
+ 
+    <button id="continue" type="submit">Continue</button>
+    <button id="cancel" type="button">Cancel</button>
 </form>
-<!-- 
-  <script>
-    document.querySelectorAll('input[name="identifierType"]').forEach(radio => {
-      radio.addEventListener('change', function() {
-        const input = document.getElementById('identifierValue');
-        if (this.value === 'email') {
-          input.placeholder = 'Enter email address';
-          input.pattern = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$";
-        } else if (this.value === 'phone') {
-          input.placeholder = 'Enter phone number (+91XXXXXXXXXX)';
-          input.pattern = "^\\+[1-9]\\d{1,14}$";
-        } else {
-          input.placeholder = 'Enter account ID';
-          input.pattern = "^[a-zA-Z0-9_-]+$";
-        }
-      });
-    });
-  </script> -->
+ 
 </body>
 </html>
