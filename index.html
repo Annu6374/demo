@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Collect Identifier</title>
+</head>
+<body>
+  <form id="selfAssertedForm">
+    <div>
+      <label>Select Identifier Type:</label><br/>
+      <input type="radio" name="identifierType" value="email" checked>Email Address<br/>
+      <input type="radio" name="identifierType" value="phone">Phone Number<br/>
+      <input type="radio" name="identifierType" value="accountId">Account ID<br/>
+    </div>
+
+    <div>
+      <input id="identifierValue" name="identifierValue" type="text" placeholder="Enter value" required />
+    </div>
+
+    <div>
+      <button id="continue" type="submit">Continue</button>
+      <button id="cancel" type="button">Cancel</button>
+    </div>
+  </form>
+
+  <script>
+    document.querySelectorAll('input[name="identifierType"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const input = document.getElementById('identifierValue');
+        if (this.value === 'email') {
+          input.placeholder = 'Enter email address';
+          input.pattern = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$";
+        } else if (this.value === 'phone') {
+          input.placeholder = 'Enter phone number (+91XXXXXXXXXX)';
+          input.pattern = "^\\+[1-9]\\d{1,14}$";
+        } else {
+          input.placeholder = 'Enter account ID';
+          input.pattern = "^[a-zA-Z0-9_-]+$";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
