@@ -99,26 +99,24 @@
 <script>
 function applyLogic() {
  
-    const radios = document.querySelectorAll('input[type="radio"]');
     const textbox = document.querySelector('input[type="text"]');
  
-    if (!radios.length || !textbox) return;
+    if (!textbox) return;
  
     function updatePlaceholder() {
  
         const selected = document.querySelector('input[type="radio"]:checked');
         if (!selected) return;
  
-        // 🔥 Get label text instead of value
-        const label = selected.parentElement.innerText.toLowerCase();
+        const id = selected.id;
  
-        if (label.includes("email")) {
+        if (id.includes("email")) {
             textbox.placeholder = "Enter your email address";
         }
-        else if (label.includes("phone")) {
+        else if (id.includes("phone")) {
             textbox.placeholder = "Enter your phone number";
         }
-        else {
+        else if (id.includes("accountId")) {
             textbox.placeholder = "Enter your account ID";
         }
     }
@@ -126,13 +124,14 @@ function applyLogic() {
     // Run once
     updatePlaceholder();
  
-    // Attach event
+    // Listen for changes
+    const radios = document.querySelectorAll('input[type="radio"]');
     radios.forEach(radio => {
         radio.addEventListener("change", updatePlaceholder);
     });
 }
  
-// Wait for B2C UI
+// Wait for B2C to load UI
 const observer = new MutationObserver(() => {
     const textbox = document.querySelector('input[type="text"]');
     const radios = document.querySelectorAll('input[type="radio"]');
