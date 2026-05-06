@@ -6,23 +6,16 @@
 </head>
 <body>
   <form id="selfAssertedForm">
-    <div>
-      <label>Select Identifier Type:</label><br/>
-      <input type="radio" name="identifierType" value="email" checked>Email Address<br/>
-      <input type="radio" name="identifierType" value="phone">Phone Number<br/>
-      <input type="radio" name="identifierType" value="accountId">Account ID<br/>
-    </div>
+  <input type="radio" name="identifierType" value="email" checked>Email Address<br/>
+  <input type="radio" name="identifierType" value="phone">Phone Number<br/>
+  <input type="radio" name="identifierType" value="accountId">Account ID<br/>
 
-    <div>
-      <input id="identifierValue" name="identifierValue" type="text" placeholder="Enter value" required />
-    </div>
+  <input id="identifierValue" name="identifierValue" type="text" placeholder="Enter value" required />
 
-    <div>
-      <button id="continue" type="submit">Continue</button>
-      <button id="cancel" type="button">Cancel</button>
-    </div>
-  </form>
-
+  <button id="continue" type="submit">Continue</button>
+  <button id="cancel" type="button">Cancel</button>
+</form>
+<!-- 
   <script>
     document.querySelectorAll('input[name="identifierType"]').forEach(radio => {
       radio.addEventListener('change', function() {
@@ -39,6 +32,6 @@
         }
       });
     });
-  </script>
+  </script> -->
 </body>
 </html>
