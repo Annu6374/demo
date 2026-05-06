@@ -8,31 +8,31 @@
         html, body {
             height: 100%;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: Arial;
             background: #f5f7fa;
         }
  
-        .page-wrapper {
+        .wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100%;
         }
  
-        .container {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            width: 360px;
-            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+        .card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            width: 340px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
         }
  
-        h2 {
+        h3 {
             text-align: center;
             margin-bottom: 20px;
         }
  
-        /* Remove default list style */
+        /* Remove default B2C list */
         #api ul {
             list-style: none;
             padding: 0;
@@ -42,44 +42,34 @@
             margin-bottom: 15px;
         }
  
-        /* Input styling */
+        /* Style textbox */
         input[type="text"] {
             width: 100% !important;
             padding: 10px;
-            border-radius: 6px;
+            border-radius: 5px;
             border: 1px solid #ccc;
         }
  
-        /* Button styling */
+        /* Style radio buttons */
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+ 
+        /* Buttons */
         .buttons {
-            display: flex !important;
-            justify-content: space-between;
             margin-top: 15px;
         }
  
-        button {
-            padding: 10px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-        }
- 
         #continue {
+            width: 100%;
+            padding: 10px;
             background: #0078d4;
             color: white;
-            width: 48%;
+            border: none;
+            border-radius: 5px;
         }
  
-        #continue:hover {
-            background: #005ea6;
-        }
- 
-        #cancel {
-            background: #ccc;
-            width: 48%;
-        }
- 
-        /* Hide help links */
+        /* Hide unwanted B2C elements */
         .helpLink {
             display: none !important;
         }
@@ -88,19 +78,17 @@
  
 <body>
  
-<div class="page-wrapper">
-    <div class="container">
-        <h2>Find Your Account</h2>
+<div class="wrapper">
+    <div class="card">
+        <h3>Find Your Account</h3>
  
-        <!-- B2C renders UI here -->
+        <!-- B2C injects fields -->
         <div id="api"></div>
- 
     </div>
 </div>
  
 <script>
 function updatePlaceholder() {
- 
     const textbox = document.querySelector('input[type="text"]');
     const selected = document.querySelector('input[type="radio"]:checked');
  
@@ -119,7 +107,7 @@ function updatePlaceholder() {
     }
 }
  
-// Continuously update (handles B2C dynamic rendering)
+/* Keep updating because B2C re-renders */
 setInterval(updatePlaceholder, 300);
 </script>
  
