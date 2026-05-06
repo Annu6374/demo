@@ -6,15 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
     <style>
-        /* Reset */
         html, body {
             height: 100%;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: Arial;
             background: #f5f7fa;
         }
  
-        /* Center container */
         .page-wrapper {
             display: flex;
             justify-content: center;
@@ -22,9 +20,8 @@
             height: 100%;
         }
  
-        /* Card UI */
         .container {
-            background: #ffffff;
+            background: #fff;
             padding: 30px;
             border-radius: 12px;
             width: 360px;
@@ -33,26 +30,17 @@
  
         h2 {
             text-align: center;
-            margin-bottom: 20px;
         }
  
-        /* B2C injected form styling */
-        #api {
-            width: 100%;
-        }
- 
-        /* Remove default bullet points */
         #api ul {
             list-style: none;
             padding: 0;
         }
  
-        /* Each field spacing */
         #api li {
             margin-bottom: 15px;
         }
  
-        /* Input styling */
         input[type="text"] {
             width: 100% !important;
             padding: 10px;
@@ -60,45 +48,23 @@
             border: 1px solid #ccc;
         }
  
-        /* Radio styling */
-        input[type="radio"] {
-            margin-right: 8px;
-        }
- 
-        /* Buttons container */
         .buttons {
             display: flex !important;
             justify-content: space-between;
-            margin-top: 15px;
         }
  
-        /* Continue button */
         button {
-            padding: 10px 15px;
-            border: none;
+            padding: 10px;
             border-radius: 6px;
-            cursor: pointer;
         }
  
-        button#continue {
+        #continue {
             background: #0078d4;
             color: white;
-            width: 48%;
         }
  
-        button#continue:hover {
-            background: #005ea6;
-        }
- 
-        /* Cancel button */
-        button#cancel {
+        #cancel {
             background: #ccc;
-            width: 48%;
-        }
- 
-        /* Hide unnecessary default texts */
-        .helpLink {
-            display: none !important;
         }
  
     </style>
@@ -110,11 +76,43 @@
     <div class="container">
         <h2>Find Your Account</h2>
  
-        <!-- B2C WILL RENDER EVERYTHING HERE -->
         <div id="api"></div>
- 
     </div>
 </div>
+ 
+<script>
+/* Wait until B2C renders the UI */
+window.addEventListener('load', function () {
+ 
+    function updatePlaceholder() {
+        const selected = document.querySelector('input[type="radio"]:checked');
+        const textbox = document.querySelector('input[type="text"]');
+ 
+        if (!selected || !textbox) return;
+ 
+        const value = selected.value;
+ 
+        if (value === "email") {
+            textbox.placeholder = "Enter your email address";
+        } else if (value === "phone") {
+            textbox.placeholder = "Enter your phone number";
+        } else {
+            textbox.placeholder = "Enter your account ID";
+        }
+    }
+ 
+    // Run once initially
+    setTimeout(updatePlaceholder, 500);
+ 
+    // Listen for radio change
+    document.addEventListener('change', function (e) {
+        if (e.target.type === "radio") {
+            updatePlaceholder();
+        }
+    });
+ 
+});
+</script>
  
 </body>
 </html>
