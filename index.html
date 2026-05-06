@@ -2,80 +2,82 @@
 <html>
 <head>
     <title>Find Your Account</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
+        body {
             font-family: Arial;
             background: #f5f7fa;
-        }
-        .wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            height: 100vh;
         }
-        .card {
-            background: #fff;
+ 
+        .container {
+            background: white;
             padding: 25px;
             border-radius: 10px;
-            width: 340px;
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+            width: 320px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
         }
-        h3 {
-            text-align: center;
-            margin-bottom: 20px;
+ 
+        .input-group {
+            display: none;
         }
-        /* Style injected controls */
-        #api input[type="text"] {
-            width: 100% !important;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        #api input[type="radio"] {
-            margin-right: 8px;
-        }
-        #continue {
-            width: 100%;
-            padding: 10px;
-            background: #0078d4;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-        .helpLink {
-            display: none !important; /* hide "What is this?" links */
+ 
+        .active {
+            display: block;
         }
     </style>
 </head>
+ 
 <body>
-<div class="wrapper">
-    <div class="card">
-        <h3>Find Your Account</h3>
-        <!-- B2C injects fields here -->
-        <div id="api"></div>
+ 
+<div class="container">
+    <h3>Find Your Account</h3>
+ 
+    <!-- Radio buttons from B2C -->
+    <div id="api"></div>
+ 
+    <!-- Custom Inputs -->
+    <div id="emailBox" class="input-group active">
+        <input type="text" placeholder="Enter your email address">
+    </div>
+ 
+    <div id="phoneBox" class="input-group">
+        <input type="text" placeholder="Enter your phone number">
+    </div>
+ 
+    <div id="accountBox" class="input-group">
+        <input type="text" placeholder="Enter your account ID">
     </div>
 </div>
-
+ 
 <script>
-function updatePlaceholder() {
-    const textbox = document.querySelector('#api input[type="text"]');
-    const selected = document.querySelector('#api input[type="radio"]:checked');
-    if (!textbox || !selected) return;
-
-    if (selected.value === "email") {
-        textbox.placeholder = "Enter your email address";
-    } else if (selected.value === "phone") {
-        textbox.placeholder = "Enter your phone number";
-    } else {
-        textbox.placeholder = "Enter your account ID";
+function updateUI() {
+ 
+    const selected = document.querySelector('input[type="radio"]:checked');
+    if (!selected) return;
+ 
+    const id = selected.id;
+ 
+    document.getElementById("emailBox").classList.remove("active");
+    document.getElementById("phoneBox").classList.remove("active");
+    document.getElementById("accountBox").classList.remove("active");
+ 
+    if (id.includes("email")) {
+        document.getElementById("emailBox").classList.add("active");
+    }
+    else if (id.includes("phone")) {
+        document.getElementById("phoneBox").classList.add("active");
+    }
+    else {
+        document.getElementById("accountBox").classList.add("active");
     }
 }
-// Run periodically because B2C re-renders
-setInterval(updatePlaceholder, 300);
+ 
+// Keep updating (handles B2C re-render)
+setInterval(updateUI, 300);
 </script>
+ 
 </body>
 </html>
