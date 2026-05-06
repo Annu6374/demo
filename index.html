@@ -105,30 +105,34 @@ function applyLogic() {
     if (!radios.length || !textbox) return;
  
     function updatePlaceholder() {
+ 
         const selected = document.querySelector('input[type="radio"]:checked');
         if (!selected) return;
  
-        const val = selected.value.toLowerCase();
+        // 🔥 Get label text instead of value
+        const label = selected.parentElement.innerText.toLowerCase();
  
-        if (val.includes("email")) {
+        if (label.includes("email")) {
             textbox.placeholder = "Enter your email address";
-        } else if (val.includes("phone")) {
+        }
+        else if (label.includes("phone")) {
             textbox.placeholder = "Enter your phone number";
-        } else {
+        }
+        else {
             textbox.placeholder = "Enter your account ID";
         }
     }
  
-    // Initial run
+    // Run once
     updatePlaceholder();
  
-    // Listen for changes
+    // Attach event
     radios.forEach(radio => {
         radio.addEventListener("change", updatePlaceholder);
     });
 }
  
-// Wait for B2C to render UI
+// Wait for B2C UI
 const observer = new MutationObserver(() => {
     const textbox = document.querySelector('input[type="text"]');
     const radios = document.querySelectorAll('input[type="radio"]');
