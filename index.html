@@ -1,38 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Identify User</title>
+    <title>Find Your Account</title>
+ 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
     <style>
-        body {
-            font-family: Arial;
+        /* Reset */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
             background: #f5f7fa;
+        }
+ 
+        /* Center container */
+        .page-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
         }
  
+        /* Card UI */
         .container {
-            background: white;
+            background: #ffffff;
             padding: 30px;
-            border-radius: 10px;
-            width: 350px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            width: 360px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
         }
  
         h2 {
             text-align: center;
+            margin-bottom: 20px;
         }
+ 
+        /* B2C injected form styling */
+        #api {
+            width: 100%;
+        }
+ 
+        /* Remove default bullet points */
+        #api ul {
+            list-style: none;
+            padding: 0;
+        }
+ 
+        /* Each field spacing */
+        #api li {
+            margin-bottom: 15px;
+        }
+ 
+        /* Input styling */
+        input[type="text"] {
+            width: 100% !important;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+ 
+        /* Radio styling */
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+ 
+        /* Buttons container */
+        .buttons {
+            display: flex !important;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+ 
+        /* Continue button */
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+ 
+        button#continue {
+            background: #0078d4;
+            color: white;
+            width: 48%;
+        }
+ 
+        button#continue:hover {
+            background: #005ea6;
+        }
+ 
+        /* Cancel button */
+        button#cancel {
+            background: #ccc;
+            width: 48%;
+        }
+ 
+        /* Hide unnecessary default texts */
+        .helpLink {
+            display: none !important;
+        }
+ 
     </style>
 </head>
  
 <body>
+ 
+<div class="page-wrapper">
     <div class="container">
         <h2>Find Your Account</h2>
  
-        <!-- ONLY THIS -->
+        <!-- B2C WILL RENDER EVERYTHING HERE -->
         <div id="api"></div>
  
     </div>
+</div>
+ 
 </body>
 </html>
