@@ -2,14 +2,13 @@
 <html>
 <head>
     <title>Find Your Account</title>
- 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
     <style>
         html, body {
             height: 100%;
             margin: 0;
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             background: #f5f7fa;
         }
  
@@ -21,7 +20,7 @@
         }
  
         .container {
-            background: #fff;
+            background: #ffffff;
             padding: 30px;
             border-radius: 12px;
             width: 360px;
@@ -30,6 +29,7 @@
  
         h2 {
             text-align: center;
+            margin-bottom: 20px;
         }
  
         #api ul {
@@ -51,20 +51,34 @@
         .buttons {
             display: flex !important;
             justify-content: space-between;
+            margin-top: 15px;
         }
  
         button {
             padding: 10px;
             border-radius: 6px;
+            border: none;
+            cursor: pointer;
         }
  
         #continue {
             background: #0078d4;
             color: white;
+            width: 48%;
+        }
+ 
+        #continue:hover {
+            background: #005ea6;
         }
  
         #cancel {
             background: #ccc;
+            width: 48%;
+        }
+ 
+        /* Optional: hide "What is this?" links */
+        .helpLink {
+            display: none !important;
         }
  
     </style>
@@ -76,41 +90,58 @@
     <div class="container">
         <h2>Find Your Account</h2>
  
+        <!-- B2C injects fields here -->
         <div id="api"></div>
+ 
     </div>
 </div>
  
 <script>
-/* Wait until B2C renders the UI */
-window.addEventListener('load', function () {
+function applyLogic() {
+ 
+    const radios = document.querySelectorAll('input[type="radio"]');
+    const textbox = document.querySelector('input[type="text"]');
+ 
+    if (!radios.length || !textbox) return;
  
     function updatePlaceholder() {
         const selected = document.querySelector('input[type="radio"]:checked');
-        const textbox = document.querySelector('input[type="text"]');
+        if (!selected) return;
  
-        if (!selected || !textbox) return;
+        const val = selected.value.toLowerCase();
  
-        const value = selected.value;
- 
-        if (value === "email") {
+        if (val.includes("email")) {
             textbox.placeholder = "Enter your email address";
-        } else if (value === "phone") {
+        } else if (val.includes("phone")) {
             textbox.placeholder = "Enter your phone number";
         } else {
             textbox.placeholder = "Enter your account ID";
         }
     }
  
-    // Run once initially
-    setTimeout(updatePlaceholder, 500);
+    // Initial run
+    updatePlaceholder();
  
-    // Listen for radio change
-    document.addEventListener('change', function (e) {
-        if (e.target.type === "radio") {
-            updatePlaceholder();
-        }
+    // Listen for changes
+    radios.forEach(radio => {
+        radio.addEventListener("change", updatePlaceholder);
     });
+}
  
+// Wait for B2C to render UI
+const observer = new MutationObserver(() => {
+    const textbox = document.querySelector('input[type="text"]');
+    const radios = document.querySelectorAll('input[type="radio"]');
+ 
+    if (textbox && radios.length > 0) {
+        applyLogic();
+        observer.disconnect();
+    }
+});
+ 
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
 });
 </script>
  
