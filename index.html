@@ -32,6 +32,7 @@
             margin-bottom: 20px;
         }
  
+        /* Remove default list style */
         #api ul {
             list-style: none;
             padding: 0;
@@ -41,6 +42,7 @@
             margin-bottom: 15px;
         }
  
+        /* Input styling */
         input[type="text"] {
             width: 100% !important;
             padding: 10px;
@@ -48,6 +50,7 @@
             border: 1px solid #ccc;
         }
  
+        /* Button styling */
         .buttons {
             display: flex !important;
             justify-content: space-between;
@@ -76,11 +79,10 @@
             width: 48%;
         }
  
-        /* Optional: hide "What is this?" links */
+        /* Hide help links */
         .helpLink {
             display: none !important;
         }
- 
     </style>
 </head>
  
@@ -90,62 +92,35 @@
     <div class="container">
         <h2>Find Your Account</h2>
  
-        <!-- B2C injects fields here -->
+        <!-- B2C renders UI here -->
         <div id="api"></div>
  
     </div>
 </div>
  
 <script>
-function applyLogic() {
+function updatePlaceholder() {
  
     const textbox = document.querySelector('input[type="text"]');
+    const selected = document.querySelector('input[type="radio"]:checked');
  
-    if (!textbox) return;
+    if (!textbox || !selected) return;
  
-    function updatePlaceholder() {
+    const id = selected.id;
  
-        const selected = document.querySelector('input[type="radio"]:checked');
-        if (!selected) return;
- 
-        const id = selected.id;
- 
-        if (id.includes("email")) {
-            textbox.placeholder = "Enter your email address";
-        }
-        else if (id.includes("phone")) {
-            textbox.placeholder = "Enter your phone number";
-        }
-        else if (id.includes("accountId")) {
-            textbox.placeholder = "Enter your account ID";
-        }
+    if (id.includes("email")) {
+        textbox.placeholder = "Enter your email address";
     }
- 
-    // Run once
-    updatePlaceholder();
- 
-    // Listen for changes
-    const radios = document.querySelectorAll('input[type="radio"]');
-    radios.forEach(radio => {
-        radio.addEventListener("change", updatePlaceholder);
-    });
+    else if (id.includes("phone")) {
+        textbox.placeholder = "Enter your phone number";
+    }
+    else {
+        textbox.placeholder = "Enter your account ID";
+    }
 }
  
-// Wait for B2C to load UI
-const observer = new MutationObserver(() => {
-    const textbox = document.querySelector('input[type="text"]');
-    const radios = document.querySelectorAll('input[type="radio"]');
- 
-    if (textbox && radios.length > 0) {
-        applyLogic();
-        observer.disconnect();
-    }
-});
- 
-observer.observe(document.body, {
-    childList: true,
-    subtree: true
-});
+// Continuously update (handles B2C dynamic rendering)
+setInterval(updatePlaceholder, 300);
 </script>
  
 </body>
