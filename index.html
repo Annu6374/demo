@@ -31,53 +31,10 @@
 </head>
  
 <body>
- 
-<div class="container">
-    <h3>Find Your Account</h3>
- 
-    <!-- Radio buttons from B2C -->
     <div id="api"></div>
- 
-    <!-- Custom Inputs -->
-    <div id="emailBox" class="input-group active">
-        <input type="text" placeholder="Enter your email address">
-    </div>
- 
-    <div id="phoneBox" class="input-group">
-        <input type="text" placeholder="Enter your phone number">
-    </div>
- 
-    <div id="accountBox" class="input-group">
-        <input type="text" placeholder="Enter your account ID">
-    </div>
+
 </div>
- 
-<script>
-function updateUI() {
- 
-    const selected = document.querySelector('input[type="radio"]:checked');
-    if (!selected) return;
- 
-    const id = selected.id;
- 
-    document.getElementById("emailBox").classList.remove("active");
-    document.getElementById("phoneBox").classList.remove("active");
-    document.getElementById("accountBox").classList.remove("active");
- 
-    if (id.includes("email")) {
-        document.getElementById("emailBox").classList.add("active");
-    }
-    else if (id.includes("phone")) {
-        document.getElementById("phoneBox").classList.add("active");
-    }
-    else {
-        document.getElementById("accountBox").classList.add("active");
-    }
-}
- 
-// Keep updating (handles B2C re-render)
-setInterval(updateUI, 300);
-</script>
+
  
 </body>
 </html>
